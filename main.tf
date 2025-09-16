@@ -13,12 +13,12 @@ module "vpc_virginia" {
   private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
   public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
 
-  enable_nat_gateway     = true
-  single_nat_gateway     = true
-  enable_dns_hostnames   = true
+  enable_nat_gateway   = true
+  single_nat_gateway   = true
+  enable_dns_hostnames = true
 
   private_subnet_tags = {
-    "kubernetes.io/role/internal-elb" = "1"
+    "kubernetes.io/role/internal-elb"      = "1"
     "kubernetes.io/cluster/my-eks-cluster" = "shared"
   }
 
@@ -33,20 +33,20 @@ module "eks" {
     aws = aws.virginia
   }
 
-  cluster_name       = "my-eks-cluster"
+  cluster_name = "my-eks-cluster"
   # version         = var.kubernetes_version   # ❌ NO (meta-argumento, no input)
-  kubernetes_version = var.kubernetes_version  # ✅ pásalo como variable de tu módulo
+  kubernetes_version = var.kubernetes_version # ✅ pásalo como variable de tu módulo
 
-  vpc_id          = module.vpc_virginia.vpc_id
-  subnet_ids      = module.vpc_virginia.private_subnets
+  vpc_id     = module.vpc_virginia.vpc_id
+  subnet_ids = module.vpc_virginia.private_subnets
 
   # Node group configuration
-  desired_size    = 2
-  max_size        = 3
-  min_size        = 1
-  instance_types  = ["t3.small"]
-  capacity_type   = "SPOT"
-  disk_size       = 20
+  desired_size   = 1
+  max_size       = 2
+  min_size       = 1
+  instance_types = ["t3.small"]
+  capacity_type  = "SPOT"
+  disk_size      = 20
 
   tags = {
     Environment = "POC-DEV"

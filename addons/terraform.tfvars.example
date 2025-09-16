@@ -1,0 +1,3 @@
+# Rellena y renombra a terraform.tfvars (NO lo commitees si pones secretos reales)
+rancher_admin_password = "Flopi2110*_" # cámbiala
+# rancher_hostname     = "abcd1234.elb.us-east-1.amazonaws.com" # opcional: forzar hostname del ELB
